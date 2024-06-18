@@ -10,6 +10,7 @@ Fliplet.Widget.instance({
       let fileList = this;
       const entry = fileList?.parent?.entry || {};
       const fileListInstanceId = fileList.id;
+      const interactMode = Fliplet.Env.get('interact');
 
       return Fliplet.Widget.findParents({ instanceId: fileListInstanceId }).then(widgets => {
         let dynamicContainer = null;
@@ -43,7 +44,7 @@ Fliplet.Widget.instance({
 
           if (!navigator.onLine) {
             return Fliplet.UI.Toast('Please connect device to the internet');
-          } else if (!dataSourceEntryId) {
+          } else if (!dataSourceEntryId && !interactMode) {
             return Fliplet.UI.Toast(
               'Missing dataSourceEntryId as a query parameter'
             );
